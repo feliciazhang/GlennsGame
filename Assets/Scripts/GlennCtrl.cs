@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GlennCtrl : MonoBehaviour {
     private bool facingRight;
@@ -38,11 +39,14 @@ public class GlennCtrl : MonoBehaviour {
         glennRenderer.flipX = !glennRenderer.flipX;
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void OnTriggerEnter2D(Collider2D collider)
     {
         // gain health when pizza eaten
-        if(collision.gameObject.tag == "pizza") {
+        if(collider.gameObject.tag == "pizza") {
             health = health < 99 ? health + 2 : 100;
+        }
+        if(collider.gameObject.tag == "edge") {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
         }
     }
 }
