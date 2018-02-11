@@ -4,4 +4,10 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/StartMenu.unity
+    guid: 798319a9742477045b3a0d952581e6db
+  - enabled: 1
+    path: Assets/Scenes/FinalBossFight.unity
+    guid: fbba373b98350a049978bb2565d0da9f
