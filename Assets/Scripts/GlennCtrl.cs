@@ -24,12 +24,13 @@ public class GlennCtrl : MonoBehaviour {
 	void Update () {
         float move = Input.GetAxis("Horizontal");
 
+        //move
         glennAnim.SetFloat("MoveSpeed", Mathf.Abs(move));
         if (move < 0 == facingRight) {
             Turn();
         }
         glennRB.velocity = new Vector2(move * maxSpeed, glennRB.velocity.y);
-	}
+    }
 
     //Switch directions
     void Turn () {

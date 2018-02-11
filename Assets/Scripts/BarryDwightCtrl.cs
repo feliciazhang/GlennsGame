@@ -30,5 +30,18 @@ public class BarryDwightCtrl : MonoBehaviour {
             destPoint = points[pointSelection];
             speed = Random.Range(4.0f, 10.0f);
         }
+        //die when no health
+        if(health <= 0) {
+            Destroy(gameObject);
+        }
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        // gain health when pizza eaten
+        if (collision.gameObject.tag == "pizza")
+        {
+            health -= 10;
+        }
     }
 }
