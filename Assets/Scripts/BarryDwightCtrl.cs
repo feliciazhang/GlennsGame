@@ -4,20 +4,21 @@ using UnityEngine;
 
 public class BarryDwightCtrl : MonoBehaviour {
     Rigidbody2D barryRB;
-    SpriteRenderer barryRenderer;
 
     private bool movingUp;
     private float speed;
     private Transform destPoint;
     public Transform[] points;
+    private int health;
+
     public int pointSelection;
 
 	// Use this for initialization
 	void Start () {
         barryRB = GetComponent<Rigidbody2D>();
-        barryRenderer = GetComponent<SpriteRenderer>();
         destPoint = points[pointSelection];
         speed = Random.Range(4.0f, 10.0f);
+        health = 100;
     }
 	
 	// Barry Dwight moves up and down at random speed

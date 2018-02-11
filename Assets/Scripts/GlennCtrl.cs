@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class GlennCtrl : MonoBehaviour {
-    Rigidbody2D glennRB;
-    SpriteRenderer glennRenderer;
-    Animator glennAnim;
-
-    public float maxSpeed;
     private bool facingRight;
+    private int health;
+
+    public Rigidbody2D glennRB;
+    public SpriteRenderer glennRenderer;
+    public Animator glennAnim;
+    public float maxSpeed;
 
     // Use this for initialization
     void Start () {
@@ -16,6 +17,7 @@ public class GlennCtrl : MonoBehaviour {
         glennRenderer = GetComponent<SpriteRenderer>();
         glennAnim = GetComponent<Animator>();
         facingRight = true;
+        health = 50;
 	}
 	
 	// Glenn moves right and left, can shoot weapon
@@ -33,5 +35,13 @@ public class GlennCtrl : MonoBehaviour {
     void Turn () {
         facingRight = !facingRight;
         glennRenderer.flipX = !glennRenderer.flipX;
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        // gain health when pizza eaten
+        if(collision.gameObject.tag == "pizza") {
+            health = health < 99 ? health + 2 : 100;
+        }
     }
 }
