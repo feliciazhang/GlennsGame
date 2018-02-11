@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class BarryDwightCtrl : MonoBehaviour {
-    Rigidbody2D barryRB;
+    public Rigidbody2D barryRB;
+    public Animator barryAnim;
 
     private bool movingUp;
     private float speed;
@@ -16,6 +17,7 @@ public class BarryDwightCtrl : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         barryRB = GetComponent<Rigidbody2D>();
+        barryAnim = GetComponent<Animator>();
         destPoint = points[pointSelection];
         speed = Random.Range(4.0f, 10.0f);
         health = 100;
@@ -23,6 +25,7 @@ public class BarryDwightCtrl : MonoBehaviour {
 	
 	// Barry Dwight moves up and down at random speed
 	void Update () {
+        barryAnim.SetFloat("MoveSpeed", Mathf.Abs(speed));
         barryRB.transform.position = Vector3.MoveTowards(barryRB.transform.position,
             destPoint.position, Time.deltaTime * speed);
         if (barryRB.transform.position == destPoint.position) {
@@ -32,14 +35,15 @@ public class BarryDwightCtrl : MonoBehaviour {
         }
         //die when no health
         if(health <= 0) {
-            Destroy(gameObject);
+            GetComponent<Collider2D>().enabled = false;
+            barryRB.gravityScale = 1;
         }
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void OnTriggerEnter2D(Collider2D collider)
     {
-        // gain health when pizza eaten
-        if (collision.gameObject.tag == "pizza")
+        // lose health when hit by pizza
+        if (collider.gameObject.tag == "pizza")
         {
             health -= 10;
         }
