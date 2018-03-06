@@ -10,7 +10,7 @@ public class BarryDwightCtrl : MonoBehaviour {
     private float speed;
     private Transform destPoint;
     public Transform[] points;
-    private int health;
+    public int health;
 
     public int pointSelection;
 
@@ -20,7 +20,6 @@ public class BarryDwightCtrl : MonoBehaviour {
         barryAnim = GetComponent<Animator>();
         destPoint = points[pointSelection];
         speed = Random.Range(4.0f, 10.0f);
-        health = 100;
     }
 	
 	// Barry Dwight moves up and down at random speed
@@ -28,11 +27,14 @@ public class BarryDwightCtrl : MonoBehaviour {
         barryAnim.SetFloat("MoveSpeed", Mathf.Abs(speed));
         barryRB.transform.position = Vector3.MoveTowards(barryRB.transform.position,
             destPoint.position, Time.deltaTime * speed);
-        if (barryRB.transform.position == destPoint.position) {
+
+		if (Mathf.Abs(barryRB.transform.position.x - destPoint.position.x) <= 0.001 &&
+			Mathf.Abs(barryRB.transform.position.y - destPoint.position.y) <= 0.001) {
             pointSelection = pointSelection == points.Length - 1 ? 0 : pointSelection + 1;
             destPoint = points[pointSelection];
             speed = Random.Range(4.0f, 10.0f);
         }
+        
         //die when no health
         if(health <= 0) {
             GetComponent<Collider2D>().enabled = false;
